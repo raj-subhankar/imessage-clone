@@ -1,5 +1,7 @@
 import { Avatar } from "@material-ui/core"
 import React from "react"
+import { useSelector } from "react-redux"
+import { selectUser } from "./features/userSlice"
 import "./Message.css"
 
 function Message({
@@ -7,10 +9,12 @@ function Message({
     contents: {
         timestamp, displayName, email, message, photo, uid
 }}) {
+
+    const user = useSelector(selectUser)
     return(
-        <div className="message">
+        <div className={`message ${user.email === email && "message__sender"}`}>
             {console.log("message" + message)}
-            <Avatar src={photo} />
+            <Avatar className="message__photo" src={photo} />
             <p>{message}</p>
             <small>{new Date(timestamp?.toDate()).toLocaleString()}</small>
         </div>
